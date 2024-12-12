@@ -10,6 +10,8 @@ import {
 import Closet from './pages/Closet.jsx';
 import ClosetMatch from './pages/ClosetMatch.jsx';
 
+import ApiTrial from './pages/ApiTrial.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "/ClosetMatch",
     element: <ClosetMatch/>,
+  },
+  {
+    path: "/ApiTrial",
+    element: <ApiTrial/>,
   },
 ]);
 
