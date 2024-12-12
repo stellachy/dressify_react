@@ -6,11 +6,11 @@ import MyNavigation from '../components/MyNavigation'
 import MyFooter from '../components/MyFooter'
 import ClosetHeader from '../components/ClosetHeader'
 
-function ClosetLayout({children}) {
+function ClosetLayout({children, isActive}) {
   return (
     <>
       <MyNavigation/>
-      <ClosetHeader/>
+      <ClosetHeader isActive={isActive}/>
         {children}
       <MyFooter/>
     </>

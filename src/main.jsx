@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 
 import Closet from './pages/Closet.jsx';
+import ClosetMatch from './pages/ClosetMatch.jsx';
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/Closet",
     element: <Closet/>,
+  },
+  {
+    path: "/ClosetMatch",
+    element: <ClosetMatch/>,
   },
 ]);
 

@@ -3,7 +3,7 @@ import ClosetLayout from '../layouts/ClosetLayout'
 
 function Closet() {
   return (
-    <ClosetLayout>
+    <ClosetLayout isActive="單品">
       <div style={{ paddingTop: '92px' }}></div>
       <div className="pb-3 mb-3" style={{height: '540px', overflowY: 'auto'}}>
         {/* <!-- 部位 --> */}
