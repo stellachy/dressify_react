@@ -1,0 +1,16 @@
+:root {
+  --color-base: #f9f8f4;
+  --color-second: #ebe3e0;
+  --color-highlight: #ae7a62;
+  --color-white: #ffffff;
+  --color-black: #3b3a38;
+}
+
+
+.btn {
+  background-color: var(--color-base);
+  border: 2px solid var(--color-highlight);
+}
+.btn:focus {
+  background-color: var(--color-highlight);
+}
