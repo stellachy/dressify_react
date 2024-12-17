@@ -2,8 +2,19 @@ import React, {useState} from 'react'
 import AddPop from './AddPop';
 
 function ClosetHeader({isActive}) {
-  const [activeBtn, setActiveBtn] = useState(isActive);
+  const [activeBtn, setActiveBtn] = useState(isActive)
   const handleBtnActive = (btnName) => { setActiveBtn(btnName) }
+
+  const [clickAdd, setClickAdd] = useState(0);
+  function handleClickAdd() {
+    // 顯示AddPop
+    setClickAdd(1)
+  }
+  function handleCloseAddPop() {
+    // 關閉AddPop
+    setClickAdd(0)
+  }
+  
   return (
     <>
       <div className="container-fluid fixed-top bg-light my-5" style={{top: '14px'}}>
@@ -19,14 +30,16 @@ function ClosetHeader({isActive}) {
             <b>穿搭</b>
           </a>
 
-          <a href="#" className="col-6"><img src="src/assets/img/icon/add.svg" style={{width: '25px'}} alt="add"/>
+          <a className="col-6"><img src="src/assets/img/icon/add.svg" style={{width: '25px'}} alt="add" onClick={handleClickAdd}/>
           </a>
 
           <a href="./closet_search.html" className="col-1 ms-2"><img src="src/assets/img/icon/pic-search.svg" style={{width: '25px'}} alt="search"/></a>
 
         </div>
       </div>
-      <AddPop/>
+      {/* 條件渲染<AddPop> */}
+      {clickAdd == 1 ? <AddPop close={handleCloseAddPop} /> : ''}
+      {/* <AddPop/> */}
     </>
   )
 }

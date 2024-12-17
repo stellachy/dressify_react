@@ -1,11 +1,10 @@
 import React, { useRef } from 'react'
 // import ClosetLayout from '../layouts/ClosetLayout'
 
-function AddPop() {
+function AddPop({close}) {
+  // 之前在js裡的寫法，到react吃不到id；但是css selector選的到^_^
   // const divElemS = document.getElementById('addBtnS');
-  // const divElemM = document.getElementById('addBtnM');
-  // const divPopM = document.getElementById('addPopM');
-  
+
   const divElemS = useRef();
   const divElemM = useRef();
   const divPopM = useRef();
@@ -29,19 +28,29 @@ function AddPop() {
     divPopM.current.classList.toggle('show');
   }
 
-  // 控制overlay => 點擊後會回到單品區域 （此可考慮整個移至index.html）
+  // 控制overlay => 點擊後收回popup
   function handleOverlay() {
-    if (!divElemS.current.contains(event.target)
-      && !divElemM.current.contains(event.target)
-      && !divPopM.current.contains(event.target)) {
-      location.href = './ClosetMatch'
+    // 如果點擊的目標不在內部元素，觸發關閉
+    if (
+      // 檢查是否useRef已經被建立
+      divElemS.current &&
+      divElemM.current &&
+      divPopM.current &&
+
+      // 如果   ref中包含了點擊的部分   以外的 （啊就是overlay的部分）
+      !divElemS.current.contains(event.target) &&
+      !divElemM.current.contains(event.target) &&
+      !divPopM.current.contains(event.target)
+    ) {
+      // 關閉AddPopup
+      close()
     }
   }
-  document.onclick = handleOverlay;
+
   return (
     // 之後可把layout刪掉 here is for checking the place
     <>
-      <div id="addOverlay" className="mt-5 p-2 bg-dark bg-opacity-25" style={{height: '600px'}}>
+      <div id="addOverlay" onClick={handleOverlay} className="mt-5 p-2 bg-dark bg-opacity-25" style={{height: '600px'}}>
         <div className="bg-light position-fixed" style={{width: '200px', top: '125px', marginLeft: '15%'}}>
           <div ref={divElemS} onClick={handleClickAddS} className="border-bottom border-2 md-24 text-center py-3 text-secondary"><img
             src="src/assets/img/icon/add_single.svg" className="align-text-bottom opacity-50" style={{width: '26px'}}

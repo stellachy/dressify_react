@@ -22,3 +22,21 @@
 #addPopM.show {
   transform: translateY(0); /* 滑入畫面 */
 }
+
+#addOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  margin-top: 53px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+
+  z-index: 100;
+
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: auto;
+}
