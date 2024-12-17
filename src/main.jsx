@@ -10,7 +10,7 @@ import {
 import Closet from './pages/closet/Closet.jsx';
 import ClosetMatch from './pages/closet/ClosetMatch.jsx';
 import ClosetPart from './pages/closet/ClosetPart.jsx';
-import AddPop from './components/AddPop.jsx'
+import Crop from './pages/closet/Crop.jsx';
 
 import ApiTrial from './pages/ApiTrial.jsx';
 
@@ -31,10 +31,10 @@ const router = createBrowserRouter([
     path: "/ClosetPart/:part",
     element: <ClosetPart/>,
   },
-  // {
-  //   path: "/AddPop",
-  //   element: <AddPop/>,
-  // },
+  {
+    path: "/Crop",
+    element: <Crop/>,
+  },
   
 
 
