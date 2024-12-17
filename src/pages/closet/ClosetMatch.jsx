@@ -1,5 +1,5 @@
 import React from 'react'
-import ClosetLayout from '../layouts/ClosetLayout'
+import ClosetLayout from '../../layouts/ClosetLayout'
 
 function ClosetMatch() {
   return (

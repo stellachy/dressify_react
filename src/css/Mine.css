@@ -13,3 +13,12 @@
 .btn:focus {
   background-color: var(--color-highlight);
 }
+
+#addPopM {
+  transform: translateY(100%);  /* 初始滑出畫面外 */
+  transition: transform 0.5s ease;  /* 平滑過渡效果 */
+}
+
+#addPopM.show {
+  transform: translateY(0); /* 滑入畫面 */
+}

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import ClosetLayoutN from '../layouts/ClosetLayoutN'
+import ClosetLayoutN from '../../layouts/ClosetLayoutN'
 import { useParams } from 'react-router-dom';
 
 // 解決1-4會不同的問題...!
-import eg1 from '../assets/img/eg1.jpg';
-import eg2 from '../assets/img/eg2.jpg';
-import eg3 from '../assets/img/eg3.jpg';
-import eg4 from '../assets/img/eg4.jpg';
-import eg5 from '../assets/img/eg5.jpg';
+import eg1 from '../../assets/img/eg1.jpg';
+import eg2 from '../../assets/img/eg2.jpg';
+import eg3 from '../../assets/img/eg3.jpg';
+import eg4 from '../../assets/img/eg4.jpg';
+import eg5 from '../../assets/img/eg5.jpg';
 
 function ClosetPart() {
   const { part } = useParams();
