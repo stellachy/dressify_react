@@ -2,13 +2,23 @@ import React, { useState, useRef, useEffect } from 'react'
 import Cropper from 'cropperjs'
 import 'cropperjs/dist/cropper.css'
 import ClosetLayoutO from '../../layouts/ClosetLayoutO'
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Crop() {
   const [croppedImgURL, setCroppedImgURL] = useState('')
   const imgPreviewRef = useRef(null)
   const imgCropRef = useRef('')
   const cropperInstance = useRef(null)
+
+  const navigate = useNavigate();
+  const handleNextStep = () => {
+    if (croppedImgURL) {
+      // 導航到 ClosetEditSingle 頁面，並傳遞 croppedImgURL 到 state
+      navigate('/ClosetEditSingle', { state: { croppedImgURL } });
+    } else {
+      alert("請先完成裁切圖片！");
+    }
+  }
 
   const location = useLocation()
   useEffect(() => {
@@ -100,8 +110,8 @@ function Crop() {
 
 
         <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px' }}>
-          <a href="#" className="btn m-2 rounded-pill align-middle">上一步</a>
-          <a href="#" className="btn m-2 rounded-pill">下一步</a>
+          <a href="./Closet" className="btn m-2 rounded-pill align-middle">上一步</a>
+          <div onClick={handleNextStep} className="btn m-2 rounded-pill">下一步</div>
         </div>
 
       </ClosetLayoutO>

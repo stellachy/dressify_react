@@ -40,3 +40,8 @@
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: auto;
 }
+
+label.required::before {
+  content: '*';
+  color: red;
+}
