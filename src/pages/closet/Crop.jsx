@@ -1,41 +1,41 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Cropper from 'cropperjs'
-import "cropperjs/dist/cropper.js"
+import 'cropperjs/dist/cropper.css'
 import ClosetLayoutO from '../../layouts/ClosetLayoutO'
-
+import { useLocation } from 'react-router-dom';
 
 function Crop() {
   const [croppedImgURL, setCroppedImgURL] = useState('')
-  const imgPreviewRef = useRef('')
+  const imgPreviewRef = useRef(null)
   const imgCropRef = useRef('')
-  const fileInputRef = useRef('')
-  const cropperInstance = useRef('')
+  const cropperInstance = useRef(null)
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
+  const location = useLocation()
+  useEffect(() => {
+    const file = location.state?.file; // 取得傳遞過來的檔案
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imgPreview = imgPreviewRef.current;
+        // 顯示選取的圖片
+        imgPreview.src = e.target.result;
+        imgPreview.classList.remove("d-none");
 
-    reader.onload = (e) => {
-      const imgPreview = imgPreviewRef.current;
+        // 初始化 Cropper
+        if (cropperInstance.current) {
+          cropperInstance.current.destroy();
+        }
 
-      // 顯示選取的圖片
-      imgPreview.src = e.target.result;
-      imgPreview.classList.remove("d-none");
-
-      // 初始化或重新初始化 Cropper
-      if (cropperInstance.current) {
-        cropperInstance.current.destroy();
-      }
-
-      cropperInstance.current = new Cropper(imgPreview, {
-        aspectRatio: 0.75,
-        viewMode: 1,
-        dragMode: "move",
-        cropBoxResizable: false,
-      });
-    };
-    reader.readAsDataURL(file);
-  }
+        cropperInstance.current = new Cropper(imgPreview, {
+          aspectRatio: 0.75,
+          viewMode: 1,
+          dragMode: 'move',
+          cropBoxResizable: false,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }, [location]);
 
   const handleCrop = () => {
     const cropper = cropperInstance.current;
@@ -49,29 +49,36 @@ function Crop() {
       const croppedImageURL = croppedCanvas.toDataURL("image/png");
       setCroppedImgURL(croppedImageURL);
 
-      // 隱藏 Cropper
+      // 隱藏 img
       imgPreviewRef.current.classList.add("d-none");
-      cropper.getContainer().classList.add("d-none");
+      // 隱藏 Cropper
+      cropper.cropper.classList.add("d-none");
+      // cropper.getContainer().classList.add("d-none");
     } else {
       console.error("Cropping is not initialized!");
     }
   };
 
   const handleCropAgain = () => {
-    setCroppedImgURL(null);
-    imgPreviewRef.current.classList.remove("d-none");
-    cropperInstance.current.getContainer().classList.remove("d-none");
+    const cropper = cropperInstance.current;
+    if (cropper != null) {
+
+      setCroppedImgURL(null);
+  
+      // 顯示 img
+      imgPreviewRef.current.classList.remove("d-none");
+      // 顯示 Cropper
+      cropper.cropper.classList.remove("d-none");
+  
+      // imgPreviewRef.current.classList.add("d-none");
+      // cropper.cropper.classList.add("d-none");
+    }
   };
 
   return (
     <>
       <ClosetLayoutO>
         <div style={{ paddingTop: '62px' }}></div>
-        <div className="m-3">
-          <input type="file" id="fileInput"
-            ref={fileInputRef} onChange={handleFileChange}/>
-             {/* className="form-control mb-3" */}
-        </div>
 
         <div className="m-3 d-flex flex-row-reverse">
           <button id="cropButton" className="btn rounded-pill mx-1"
@@ -85,7 +92,7 @@ function Crop() {
           <img id="previewImg" ref={imgPreviewRef} className="border d-none" width="300px" height="400px" src="#" alt="Preview" />
 
           {/* 裁切後的圖片 */}
-          { croppedImgURL && (
+          {croppedImgURL && (
             <img id="cropImg" ref={imgCropRef} className="border rounded" width="300px" height="400px" src={croppedImgURL} alt="Cropped" />
           )}
 
@@ -93,7 +100,7 @@ function Crop() {
 
 
         <div id="progress" className="fixed-bottom border-top d-flex justify-content-between" style={{ height: '55px' }}>
-          <a href="#" className="btn m-2 rounded-pill">上一步</a>
+          <a href="#" className="btn m-2 rounded-pill align-middle">上一步</a>
           <a href="#" className="btn m-2 rounded-pill">下一步</a>
         </div>
 

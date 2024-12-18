@@ -1,13 +1,19 @@
 import React, { useRef } from 'react'
 // import ClosetLayout from '../layouts/ClosetLayout'
+import { useNavigate } from 'react-router-dom';
 
 function AddPop({close}) {
   // 之前在js裡的寫法，到react吃不到id；但是css selector選的到^_^
   // const divElemS = document.getElementById('addBtnS');
 
-  const divElemS = useRef();
-  const divElemM = useRef();
-  const divPopM = useRef();
+  // const divElemS = useRef();
+  const divElemS = useRef(null);
+  const divElemM = useRef(null);
+  const divPopM = useRef(null);
+
+  const fileInputRef = useRef();
+  const navigate = useNavigate();
+
   
   function handleClickAddS() {
     // console.log(divElemS.current.childNodes[0]);  // <img> ... </img>
@@ -15,8 +21,17 @@ function AddPop({close}) {
     // 圖片與文字改為黑色
     divElemS.current.childNodes[0].classList.toggle('opacity-50');
     divElemS.current.childNodes[1].classList.toggle('text-dark');
-    // the following is for redirecting to Crop.jsx, ClosetEditSingle.jsx, ...(就接下來一連串的流程ㄉ第一個page)
-    // location.href = './Closet';  
+
+    // 觸發隱藏的input（就像使用者同時點擊「瀏覽」按鈕的感覺）
+    fileInputRef.current.click();
+  }
+
+  function handleFileChange() {
+    const file = event.target.files[0];
+    if (file) {
+      // 導航到 Crop 頁面，並將檔案資訊附帶到 state
+      navigate('/Crop', { state: { file } });
+    }
   }
 
   function handleClickAddM() {
@@ -61,6 +76,7 @@ function AddPop({close}) {
             <span>&nbsp;&nbsp;新增穿搭</span></div>
         </div>
       </div>
+      <input type="file" className="d-none" ref={fileInputRef} id="fileInput" onChange={handleFileChange} />
 
       <div id="addPopM" ref={divPopM} className="fixed-bottom bg-light rounded-top" style={{height: '220px'}}>
         <div className="mx-5 my-3 pt-3">
